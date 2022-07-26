@@ -1,1 +1,20 @@
-# movies-explorer-api
+# Команды
+ssh kirillzhakin@84.252.138.60
+sudo nano /etc/nginx/sites-available/default
+sudo nano ./.ssh/authorized_keys
+sudo nano ./.ssh/config
+git clone 
+sudo nginx -t
+sudo systemctl reload nginx
+git pull origin main 
+pm2 restart app
+
+cd react-mesto-api-full
+git add -A
+git commit -m "Диплом"
+git push -u origin main
+scp -r ./express-mesto-gha/* kirillzhakin@130.193.55.178:/home/kirillzhakin/react-mesto-api-full/backend
+cat id_rsa.pub
+
+git checkout -b level-1
+git status
