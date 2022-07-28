@@ -20,12 +20,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Вы не указали пароль'],
-    minlength: [4, 'Длина пароля меньше 4-х символов'],
     select: false,
   },
   name: {
     type: String,
-    default: 'Имя пользователя',
+    required: [true, 'Вы не имя пользователя'],
     minlength: [2, 'Длина имени пользователя меньше 2-х символов'],
     maxlength: [30, 'Длина имени пользователя более 30-и символов'],
   },

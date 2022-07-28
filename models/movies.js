@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { regRU, regEN, regUrl } = require('../utils/reg');
+const { regUrl } = require('../utils/reg');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -15,7 +15,7 @@ const movieSchema = new mongoose.Schema({
     required: [true, 'Вы не указали длительность фильма'],
   },
   year: {
-    type: Number,
+    type: String,
     required: [true, 'Вы не указали год выпуска фильма'],
   },
   description: {
@@ -66,22 +66,10 @@ const movieSchema = new mongoose.Schema({
   nameRU: {
     type: String,
     required: [true, 'Вы не указали название фильма'],
-    validate: {
-      validator(v) {
-        return regRU.test(v);
-      },
-      message: 'Название фильма должно быть на русском языке',
-    },
   },
   nameEN: {
     type: String,
     required: [true, 'Вы не указали название фильма'],
-    validate: {
-      validator(v) {
-        return regEN.test(v);
-      },
-      message: 'Название фильма должно быть на английском языке',
-    },
   },
 }, { versionKey: false });
 

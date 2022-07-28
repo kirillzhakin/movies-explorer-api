@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 
-const { PORT } = process.env;
+const { dataMovies, PORT } = require('./utils/data');
 
 const userRouter = require('./routes/users');
 const movieRouter = require('./routes/movies');
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors);
 
-mongoose.connect('mongodb://0.0.0.0:27017/bitfilmsdb')
+mongoose.connect(dataMovies)
   .then(() => {
     console.log('Подключен к базе данных');
   });
@@ -34,14 +34,14 @@ app.use(requestLogger);
 app.use('/', authRouter);
 app.use(auth);
 
-app.use('/users', userRouter);
-app.use('/movies', movieRouter);
-
-app.use(errorLogger);
+app.use(userRouter);
+app.use(movieRouter);
 
 app.use('*', (_req, _res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use(errorHandler, () => { console.log('Ошибка'); });

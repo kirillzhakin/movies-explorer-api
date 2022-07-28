@@ -6,7 +6,7 @@ const ConflictError = require('../errors/ConflictError');
 const ValidationError = require('../errors/ValidationError');
 const CastError = require('../errors/CastError');
 
-const JWT_TOKEN = 'super-strong-secret';
+const { JWT_TOKEN } = require('../utils/data');
 
 // POST /signup - создаёт пользователя с переданными в теле email, password и name
 const createUser = (req, res, next) => {
@@ -19,13 +19,12 @@ const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        next(new ConflictError('Пользователь уже существует'));
+        return next(new ConflictError('Пользователь уже существует'));
       }
       if (err.name === 'ValidationError') {
-        next(new ValidationError(err.message));
-      } else {
-        next(err);
+        return next(new ValidationError(err.message));
       }
+      return next(err);
     });
 };
 
@@ -49,12 +48,7 @@ const login = (req, res, next) => {
 // POST /signout - удаляем JWT из куков пользователя
 const signout = (_req, res, next) => {
   try {
-    res.cookie('jwt', '', {
-      maxAge: -1,
-      httpOnly: true,
-      sameSite: true,
-    })
-      .send({ message: 'Выход' });
+    res.clearCookie('jwt').send({ message: 'Выход' });
   } catch (err) {
     next(err);
   }
@@ -90,11 +84,13 @@ const updateUserProfile = (req, res, next) => {
       res.status(200).send(user);
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new CastError('Некорректные данные'));
-      } else {
-        next(err);
+      if (err.code === 11000) {
+        return next(new ConflictError('Пользователь уже существует'));
       }
+      if (err.name === 'CastError') {
+        return next(new CastError('Некорректные данные'));
+      }
+      return next(err);
     });
 };
 
