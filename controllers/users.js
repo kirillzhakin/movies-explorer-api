@@ -4,9 +4,8 @@ const User = require('../models/users');
 const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 const ValidationError = require('../errors/ValidationError');
-const CastError = require('../errors/CastError');
 
-const { JWT_TOKEN } = require('../utils/data');
+const { JWT_TOKEN = 'super-strong-secret' } = require('../utils/data');
 
 // POST /signup - создаёт пользователя с переданными в теле email, password и name
 const createUser = (req, res, next) => {
@@ -36,13 +35,7 @@ const login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, JWT_TOKEN, { expiresIn: '7d' });
       res.cookie('jwt', token, { maxAge: 3600000, httpOnly: true }).send({ token, message: 'Авторизация прошла успешно' });
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new CastError('Некорректные данные'));
-      } else {
-        next(err);
-      }
-    });
+    .catch((err) => { next(err); });
 };
 
 // POST /signout - удаляем JWT из куков пользователя
@@ -64,13 +57,7 @@ const getMe = (req, res, next) => {
       }
       return res.send(...user);
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new CastError('Некорректные данные'));
-      } else {
-        next(err);
-      }
-    });
+    .catch((err) => { next(err); });
 };
 
 // PATCH /users/me - обновляет информацию о пользователе (email и имя)
@@ -87,8 +74,8 @@ const updateUserProfile = (req, res, next) => {
       if (err.code === 11000) {
         return next(new ConflictError('Пользователь уже существует'));
       }
-      if (err.name === 'CastError') {
-        return next(new CastError('Некорректные данные'));
+      if (err.name === 'ValidationError') {
+        return next(new ValidationError(err.message));
       }
       return next(err);
     });
