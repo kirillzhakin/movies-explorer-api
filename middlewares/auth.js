@@ -7,15 +7,16 @@ const handleAuthError = (next) => {
   next(new ReqAuthError('Необходима авторизация'));
 };
 
-const authorization = (req, _res, next) => {
-  const token = req.cookies.jwt;
-  if (!token) {
+const auth = (req, _res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization || !authorization.startsWith('Bearer ')) {
     return handleAuthError(next);
   }
+  const token = authorization.replace('Bearer ', '');
   let payload;
 
   try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_TOKEN : 'super-strong-secret');
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_TOKEN : 'dev-secret');
   } catch (err) {
     return handleAuthError(next);
   }
@@ -23,4 +24,4 @@ const authorization = (req, _res, next) => {
   return next();
 };
 
-module.exports = authorization;
+module.exports = auth;
