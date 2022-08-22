@@ -26,9 +26,9 @@ movieRouter.post('/movies', celebrate({
 }), createMovie);
 
 // DELETE /movies/_id - удаляет сохранённый фильм по id
-movieRouter.delete('/movies/:id', celebrate({
+movieRouter.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
-    id: Joi.string().min(1).hex().required(),
+    id: Joi.string().length(24).hex().required(),
   }),
 }), deleteMovie);
 
