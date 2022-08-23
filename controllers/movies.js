@@ -52,8 +52,9 @@ const createMovie = (req, res, next) => {
 
 // DELETE /movies/_id - удаляет сохранённый фильм по id
 const deleteMovie = (req, res, next) => {
-  const { id } = req.params;
-  Movie.findById(id)
+  const { movieId } = req.params;
+  console.log(req.params);
+  Movie.findById(movieId)
     .then((movie) => {
       if (!movie) next(new NotFoundError('Видео не существует'));
       if (req.user._id === movie.owner.toString()) {
