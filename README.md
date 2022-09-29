@@ -1,14 +1,8 @@
-IP-адрес сервера: 84.252.138.60
-Бэкэнд: api.kirillzhakin.diplom.nomoredomains.xyz
-Ссылка на сайт:  https://kirillzhakin.diplom.nomoredomains.xyz
-Ссылка на сайт:  http://kirillzhakin.diplom.nomoredomains.xyz
-
-
 # Movies Browser (backend)
-## Описание
+### Описание
 Movies Browser — cервис, в котором можно найти фильмы по запросу и сохранить в личном кабинете. Репозиторий содержит API дипломного проекта Movies Browser.
 
-## Использованные технологии  
+### Использованные технологии  
 ![NODE.JS](https://img.shields.io/badge/Node.js-172F45?style=for-the-badge&logo=node.js)
 ![MONGODB](https://img.shields.io/badge/MongoDB-172F45?style=for-the-badge&logo=mongodb&)
 ![EXPRESS.JS](https://img.shields.io/badge/Express-172F45?style=for-the-badge&logo=express)
@@ -18,7 +12,7 @@ Movies Browser — cервис, в котором можно найти филь
 ❗️❗️❗️ Для работы с этим API есть frontend проект - [movies-explorer-frontend](https://github.com/kirillzhakin/movies-explorer-frontend.git)
 #
 
-## Возможности
+### Возможности
 - Регистрация  
 - Авторизация
 - Запрос информации о текущем пользователе
@@ -28,7 +22,7 @@ Movies Browser — cервис, в котором можно найти филь
 - Запрос перечня сохранённых фильмов
 #
 
-## Инструкция по запуску (Быстрый старт)
+### Инструкция по запуску (Быстрый старт)
 
 Если вы хотите запустить локальную копию приложения, следуйте инструкции:
 
