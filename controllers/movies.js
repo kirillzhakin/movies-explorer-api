@@ -18,7 +18,7 @@ const moviesController = (req, res, next) => {
     });
 };
 
-// POST /movies - создаёт фильм с переданными в теле country,
+// POST /movies -   создаёт фильм с переданными в теле country,
 // director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
 const createMovie = (req, res, next) => {
   const {
