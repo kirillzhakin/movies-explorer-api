@@ -1,8 +1,8 @@
-const Movie = require("../models/movies");
-const NotFoundError = require("../errors/NotFoundError");
-const ValidationError = require("../errors/ValidationError");
-const ForbiddenError = require("../errors/ForbiddenError");
-const CastError = require("../errors/CastError");
+const Movie = require('../models/movies');
+const NotFoundError = require('../errors/NotFoundError');
+const ValidationError = require('../errors/ValidationError');
+const ForbiddenError = require('../errors/ForbiddenError');
+const CastError = require('../errors/CastError');
 
 // GET /movies - возвращает все сохранённые текущим  пользователем фильмы
 const moviesController = (req, res, next) => {
@@ -10,8 +10,8 @@ const moviesController = (req, res, next) => {
   Movie.find({ owner })
     .then((movie) => res.send(movie))
     .catch((err) => {
-      if (err.name === "CastError") {
-        next(new CastError("Некорректные данные"));
+      if (err.name === 'CastError') {
+        next(new CastError('Некорректные данные'));
       } else {
         next(err);
       }
@@ -51,7 +51,7 @@ const createMovie = (req, res, next) => {
   })
     .then((movie) => res.send(movie))
     .catch((err) => {
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         next(new ValidationError(err.message));
       } else {
         next(err);
@@ -64,15 +64,15 @@ const deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
   Movie.findById(movieId)
     .then((movie) => {
-      if (!movie) next(new NotFoundError("Видео не существует"));
+      if (!movie) next(new NotFoundError('Видео не существует'));
       if (req.user._id === movie.owner.toString()) {
         return movie.remove().then(() => res.send({ message: movie }));
       }
-      return next(new ForbiddenError("Попытка удалить чужое видео"));
+      return next(new ForbiddenError('Попытка удалить чужое видео'));
     })
     .catch((err) => {
-      if (err.name === "CastError") {
-        next(new CastError("Некорректные данные"));
+      if (err.name === 'CastError') {
+        next(new CastError('Некорректные данные'));
       } else {
         next(err);
       }

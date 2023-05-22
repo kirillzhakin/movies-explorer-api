@@ -1,7 +1,6 @@
 const allowedCors = [
-  'https://movies-explorer-frontend-phi.vercel.app/',
-  'http://movies-explorer-frontend-phi.vercel.app/',
-  'localhost:3000'
+  'https://movies-explorer-frontend-phi.vercel.app',
+  'localhost:3000',
 ];
 
 const cors = (req, res, next) => {
