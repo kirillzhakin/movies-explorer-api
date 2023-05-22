@@ -1,13 +1,13 @@
 const {
-  dataMovies = 'mongodb://0.0.0.0:27017/moviesdb',
+  DATA_MOVIES_PRODUCTION,
   PORT = 3000,
   NODE_ENV,
-  JWT_TOKEN,
+  JWT_TOKEN
 } = process.env;
 
 module.exports = {
-  dataMovies,
+  DATA_MOVIES_PRODUCTION,
   PORT,
   NODE_ENV,
-  JWT_TOKEN,
+  JWT_TOKEN
 };

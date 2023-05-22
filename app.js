@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 
-const { dataMovies, PORT } = require('./utils/data');
+const { DATA_MOVIES_PRODUCTION, PORT } = require('./utils/data');
 
 const userRouter = require('./routes/users');
 const movieRouter = require('./routes/movies');
@@ -24,10 +24,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors);
 
-mongoose.connect(dataMovies)
-  .then(() => {
-    console.log('Подключен к базе данных');
-  });
+mongoose.connect(DATA_MOVIES_PRODUCTION).then(() => {
+  console.log('Подключен к базе данных');
+});
 
 app.use(requestLogger);
 
@@ -44,7 +43,9 @@ app.use('*', (_req, _res, next) => {
 app.use(errorLogger);
 
 app.use(errors());
-app.use(errorHandler, () => { console.log('Ошибка'); });
+app.use(errorHandler, () => {
+  console.log('Ошибка');
+});
 
 app.listen(PORT, () => {
   console.log(`Порт ${PORT}`);

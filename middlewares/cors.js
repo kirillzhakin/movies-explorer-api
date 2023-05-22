@@ -1,7 +1,7 @@
 const allowedCors = [
-  'http://kirillzhakin.diplom.nomoredomains.xyz',
-  'https://kirillzhakin.diplom.nomoredomains.xyz',
-  'localhost:3000',
+  'https://movies-explorer-frontend-phi.vercel.app/',
+  'http://movies-explorer-frontend-phi.vercel.app/',
+  'localhost:3000'
 ];
 
 const cors = (req, res, next) => {
